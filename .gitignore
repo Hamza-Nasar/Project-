@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# IDEs and Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+.tmp-vite.*
+
+# Playwright / MCP files
+.playwright-mcp/
+figma_page.html
+figma_embed.html
+figma_cookies.txt
+tmp_figma_js/
+
+# Screenshots and Assets (Unnecessary for git)
+*.png
+*.jpg
+*.jpeg
+*.webp
+!app/src/assets/**/*
+
+# Misc
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
