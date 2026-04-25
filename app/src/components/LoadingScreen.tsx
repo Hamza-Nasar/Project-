@@ -2,24 +2,6 @@ const listSkeletonRows = Array.from({ length: 7 }, (_, index) => index)
 
 const topNavItems = ['Inbox', 'Contacts', 'AI Employees', 'Workflows', 'Campaigns']
 
-// SVG hexagon icons to mimic the Figma honeycomb icons
-const HexIcon = ({ children }: { children: React.ReactNode }) => (
-  <svg viewBox="0 0 40 46" fill="none" aria-hidden="true">
-    <path
-      d="M20 2L37 11.5V29.5L20 39L3 29.5V11.5L20 2Z"
-      stroke="rgba(96,165,250,0.6)"
-      strokeWidth="1.5"
-    />
-    <foreignObject x="8" y="10" width="24" height="26">
-      <div style={{ display: 'grid', placeItems: 'center', height: '100%', color: 'rgba(147,197,253,0.9)', fontSize: '14px' }}>
-        {children}
-      </div>
-    </foreignObject>
-  </svg>
-)
-
-import React from 'react'
-
 export const LoadingScreen = () => {
   return (
     <main className="loading-shell" aria-live="polite" aria-busy="true">

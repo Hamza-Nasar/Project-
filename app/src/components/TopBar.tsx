@@ -59,14 +59,25 @@ const SettingsIcon = () => (
   </svg>
 )
 
-export const TopBar = () => {
+interface TopBarProps {
+  variant: 'dashboard1' | 'dashboard2'
+}
+
+export const TopBar = ({ variant }: TopBarProps) => {
   return (
     <header className="top-bar panel-card">
       <div className="product-mark" aria-label="Product name">
-        <h1>
-          <span className="box">BOX</span>
-          <span className="pad">pad</span>
-        </h1>
+        {variant === 'dashboard2' ? (
+          <h1 className="heyy-mark">
+            <span className="heyy-icon" aria-hidden="true">h</span>
+            <span>heyy</span>
+          </h1>
+        ) : (
+          <h1>
+            <span className="box">BOX</span>
+            <span className="pad">pad</span>
+          </h1>
+        )}
       </div>
 
       <nav className="top-nav" aria-label="Primary navigation">

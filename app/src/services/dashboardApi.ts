@@ -90,6 +90,47 @@ const previewRoles = [
 
 const previewTimes = ['23:23', '23:16', '22:28', '20:43', '17:37', '16:01', '13:44', '09:02', 'Yesterday', '13:52']
 
+const fallbackUsers: ApiUsersResponse['users'] = previewNames.map((name, index) => {
+  const [firstName = 'Customer', ...lastNameParts] = name.split(' ')
+
+  return {
+    id: index + 1,
+    firstName,
+    lastName: lastNameParts.join(' ') || 'Contact',
+    email: previewEmails[index] ?? `contact${index + 1}@example.com`,
+    phone: '+1 (312) 555-0134',
+    image: '',
+    company: {
+      title: previewRoles[index] ?? 'Account Contact',
+    },
+  }
+})
+
+const fallbackComments: ApiCommentsResponse['comments'] = previewNames.flatMap((name, index) => {
+  return Array.from({ length: 4 }, (_, messageIndex) => ({
+    id: index * 10 + messageIndex + 1,
+    body: previewRoles[index] ?? 'Customer needs support with their account.',
+    user: {
+      id: index + 1,
+      username: name.toLowerCase().replace(/\s+/g, '.'),
+      fullName: name,
+    },
+  }))
+})
+
+const fallbackPosts: ApiPostsResponse['posts'] = [
+  {
+    id: 1,
+    title: 'Account access request',
+    body: 'Customer needs help accessing the account.',
+  },
+  {
+    id: 2,
+    title: 'Membership support',
+    body: 'Customer conversation is ready for support follow-up.',
+  },
+]
+
 const refineReply = (text: string): string => {
   if (text.length <= 66) {
     return `Noted. ${text}`
@@ -164,11 +205,25 @@ const buildMessages = (
 }
 
 export const fetchDashboardData = async (signal?: AbortSignal): Promise<DashboardData> => {
-  const [usersData, commentsData, postsData] = await Promise.all([
-    fetchJson<ApiUsersResponse>('/users?limit=20&skip=0', signal),
-    fetchJson<ApiCommentsResponse>('/comments?limit=100&skip=0', signal),
-    fetchJson<ApiPostsResponse>('/posts?limit=30&skip=0', signal),
-  ])
+  let usersData: ApiUsersResponse
+  let commentsData: ApiCommentsResponse
+  let postsData: ApiPostsResponse
+
+  try {
+    ;[usersData, commentsData, postsData] = await Promise.all([
+      fetchJson<ApiUsersResponse>('/users?limit=20&skip=0', signal),
+      fetchJson<ApiCommentsResponse>('/comments?limit=100&skip=0', signal),
+      fetchJson<ApiPostsResponse>('/posts?limit=30&skip=0', signal),
+    ])
+  } catch (error) {
+    if (signal?.aborted) {
+      throw error
+    }
+
+    usersData = { users: fallbackUsers }
+    commentsData = { comments: fallbackComments }
+    postsData = { posts: fallbackPosts }
+  }
 
   const conversations = buildConversations(usersData.users)
   const messages = buildMessages(conversations, commentsData.comments, postsData.posts)

@@ -1,15 +1,17 @@
+import type { ReactNode } from 'react'
 import type { Conversation } from '../types'
 
 interface SidebarProps {
   totalConversations: number
   unassignedConversations: number
   conversations: Conversation[]
+  variant: 'dashboard1' | 'dashboard2'
 }
 
 interface SidebarItem {
   label: string
   count?: number
-  icon: JSX.Element
+  icon: ReactNode
   muted?: boolean
 }
 
@@ -75,6 +77,8 @@ const teamItems: SidebarItem[] = [
   },
 ]
 
+const userPlaceholders = Array.from({ length: 8 }, (_, index) => index)
+
 const defaultUserCounts = [2, 11, 0, 4, 5, 0, 1, 0, 2]
 
 const userNames = [
@@ -120,8 +124,9 @@ const PrimaryItems = ({ items }: { items: SidebarItem[] }) => (
   </div>
 )
 
-export const Sidebar = ({ totalConversations, unassignedConversations }: SidebarProps) => {
+export const Sidebar = ({ totalConversations, unassignedConversations, variant }: SidebarProps) => {
   const channelName = 'Fit4Life'
+  const showSkeletonUsers = variant === 'dashboard1'
 
   return (
     <aside className="inbox-sidebar panel-card" aria-label="Inbox sections">
@@ -139,23 +144,31 @@ export const Sidebar = ({ totalConversations, unassignedConversations }: Sidebar
         <Chevron />
       </button>
 
-      <div className="users-list">
-        {userNames.map((name, index) => (
-          <button
-            type="button"
-            key={name}
-            className={`user-row${name === 'Michael Johnson' ? ' selected' : ''}`}
-          >
-            <span className="label-wrap">
-              <span className="item-icon muted-icon">
-                <UserIcon />
+      {showSkeletonUsers ? (
+        <div className="sidebar-placeholders" aria-hidden="true">
+          {userPlaceholders.map((item) => (
+            <span key={item} />
+          ))}
+        </div>
+      ) : (
+        <div className="users-list">
+          {userNames.map((name, index) => (
+            <button
+              type="button"
+              key={name}
+              className={`user-row${name === 'Michael Johnson' ? ' selected' : ''}`}
+            >
+              <span className="label-wrap">
+                <span className="item-icon muted-icon">
+                  <UserIcon />
+                </span>
+                <span>{name}</span>
               </span>
-              <span>{name}</span>
-            </span>
-            {defaultUserCounts[index] ? <em>{defaultUserCounts[index]}</em> : null}
-          </button>
-        ))}
-      </div>
+              {defaultUserCounts[index] ? <em>{defaultUserCounts[index]}</em> : null}
+            </button>
+          ))}
+        </div>
+      )}
 
       <button type="button" className="group-heading channel-heading">
         <span>Channels</span>

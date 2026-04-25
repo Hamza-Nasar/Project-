@@ -92,7 +92,7 @@ const MicIcon = () => (
 )
 
 export const ChatPanel = ({ conversation }: ChatPanelProps) => {
-  const email = conversation?.email.toLowerCase() ?? 'olivia.mckinsey@gmail.com'
+  const email = conversation?.email ?? 'olivia.Mckinsey@gmail.com'
 
   return (
     <section className="chat-panel panel-card" aria-label="Active conversation">
@@ -113,13 +113,15 @@ export const ChatPanel = ({ conversation }: ChatPanelProps) => {
       </header>
 
       <div className="chat-stream">
+        <span className="date-chip">28 August 2025</span>
+
         <article className="chat-bubble incoming">
           <p>Hi, I recently joined Fit4Life and I'm trying to access my workout plan, but I can't login. Can you help?</p>
           <time>23:08</time>
         </article>
 
         <article className="chat-bubble outgoing">
-          <p>Hello Olivia 🙋 I'm Michael, your AI customer support assistant. Let's fix this quickly. Could you confirm the email address?</p>
+          <p>Hello Olivia 👋 I'm Michael, your AI customer support assistant. Let's fix this quickly. Could you confirm the email address?</p>
           <div className="bubble-meta">
             <time>23:08</time>
             <DoubleTick />
@@ -151,7 +153,7 @@ export const ChatPanel = ({ conversation }: ChatPanelProps) => {
 
         <article className="chat-bubble outgoing">
           <p>
-            Perfect 🎉 Your plan is ready under "My Programs". Since you're starting out, I suggest our Premium Guide - it boosts results and is 20% off here{' '}
+            Perfect 🎉 Your plan is ready under "My Programs". Since you're starting out, I suggest our Premium Guide - it boosts results and is 20% off here 👉{' '}
             <a href="#" style={{color:'#6d4fc4',textDecoration:'underline'}}>www.Fit4Life.com/Premium</a>
           </p>
           <div className="bubble-meta">
