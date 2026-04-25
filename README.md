@@ -18,7 +18,7 @@ BOXpad is a high-performance, aesthetically premium CRM support dashboard built 
 - **Framework**: [React 19](https://reactjs.org/)
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/) (Strict mode)
-- **Styling**: Vanilla CSS (Modern CSS variables, Flexbox, and CSS Grid)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + Vanilla CSS (Modern CSS variables, Flexbox, and CSS Grid)
 - **Icons**: Custom SVG icons for precision and lightweight performance.
 
 ## 📂 Project Structure
@@ -69,6 +69,34 @@ The project uses a custom design system defined in `App.css`, focusing on:
 - **Typography**: Plus Jakarta Sans for a modern, clean look.
 - **Color Palette**: Deep navy gradients for the shell and light grays/whites for the workspace.
 - **Glassmorphism**: Subtle borders and shadows to create depth.
+
+### Tailwind CSS Setup
+
+Tailwind CSS is configured for this project with:
+
+**Installation:**
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+
+**Configuration Files:**
+- `tailwind.config.js` - Main Tailwind configuration with theme extensions
+- `postcss.config.js` - PostCSS configuration for processing Tailwind CSS
+
+**Usage:**
+The Tailwind CSS directives are included in `src/index.css`:
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+You can now use Tailwind utility classes throughout your components:
+```jsx
+<div className="flex items-center justify-between bg-blue-50 p-4 rounded-lg">
+  <span className="text-lg font-semibold">Hello World</span>
+</div>
+```
 
 ## 📝 Customization & Overrides
 
