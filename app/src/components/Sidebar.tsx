@@ -77,7 +77,7 @@ const teamItems: SidebarItem[] = [
   },
 ]
 
-const userPlaceholders = Array.from({ length: 8 }, (_, index) => index)
+const userPlaceholders = Array.from({ length: 9 }, (_, index) => index)
 
 const defaultUserCounts = [2, 11, 0, 4, 5, 0, 1, 0, 2]
 
